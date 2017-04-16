@@ -1,0 +1,13 @@
+{
+  "entry": "./src/html/bootstrap/**/*.hbs",
+  "output": "./build/{{country}}/{{locale}}",
+  "entryRoot": "bootstrap",
+  "basename": "index.html",
+  "localesDir": [
+    "./src/i18n/{{country}}/en.json",
+    "./src/i18n/{{country}}/{{defaultLocale}}.json",
+    "./src/i18n/{{country}}/{{locale}}.json",
+    "./src/i18n/bootstrap/{{country}}/{{locale}}.json"
+  ],
+  "stylesDir": "./src/styles/bootstrap/{{partnerName}}.scss"
+}

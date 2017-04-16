@@ -3,7 +3,7 @@ var evtman = (function() {
 
   function subscribe(type, fn) {
     if (!subscribers[type]) {
-        subscribers[type] = []
+      subscribers[type] = []
     }
 
     if (subscribers[type].indexOf(fn) == -1) {

@@ -1,0 +1,17 @@
+[
+  {
+    "partnerName": "celcom",
+    "country": "my",
+    "locales": { "$ref": "/i18n.json" },
+    "defaultLocale": { "$ref": "/i18n.json#my/defaultLocale" },
+    "projectId": { "$ref": "/i18nPartnerProjectId.json#my" },
+    "sections": [
+      "lang-toggle",
+      "partner-intro",
+      "iflix-intro",
+      "feature-list",
+      "call-to-action",
+      "faq"
+    ]
+  }
+]

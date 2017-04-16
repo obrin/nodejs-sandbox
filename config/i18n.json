@@ -1,0 +1,30 @@
+{
+  "my": {
+    "localeList": [
+      "en",
+      "ms"
+    ],
+    "defaultLocale": "en",
+    "country": "my"
+  },
+  "id": {
+    "localeList": [
+      "en",
+      "id"
+    ],
+    "defaultLocale": "en"
+  },
+  "th": {
+    "localeList": [
+      "en",
+      "th"
+    ],
+    "defaultLocale": "en"
+  },
+  "ph": {
+    "localeList": [
+      "en"
+    ],
+    "defaultLocale": "en"
+  }
+}

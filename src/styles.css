@@ -1,0 +1,222 @@
+@value break-sm from '../../shared/css/media.css';
+@value color-success from '../../shared/css/constants.css';
+
+:root {
+  --dropdown-list-color: #282828;
+  --dropdown-list-height: 125px;
+  --dropdown-item-height: 25px;
+  --font-color-primary: #ffffff;
+  --font-color-secondary: rgba(255, 255, 255, 0.8);
+  --input-font-size: 30px;
+  --input-font-weight: normal;
+  --error-font-size: 14px;
+  --error-padding: 4px;
+  --error-height: 30px;
+}
+
+.container {
+  box-sizing: border-box;
+  position: relative;
+  width: 100%;
+  * {
+    box-sizing: inherit;
+  }
+  /* Overwrites ugly browser default autofill */
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+    color: var(--font-color-primary);
+  }
+
+  input::placeholder {
+    opacity: 0.4;
+  }
+}
+
+.mobileContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.mobile {
+  color: var(--font-color-primary);
+  background-color: transparent;
+  display: flex;
+  height: 38px;
+  margin-bottom: 6px;
+  input {
+    font-size: var(--input-font-size);
+    font-weight: var(--input-font-weight);
+    color: var(--font-color-primary);
+  }
+}
+
+.dropdown {
+  outline: none;
+  border: none;
+  cursor: pointer;
+  width: 110px;
+  display: flex;
+  justify-content: flex-end;
+  input {
+    width: 100%;
+  }
+}
+
+.dropdownInput {
+  background: transparent no-repeat scroll right center;
+  outline: none;
+  cursor: pointer;
+  border: none;
+  text-align: right;
+  height: 100%;
+}
+
+.mobileInput {
+  background-color: transparent;
+  outline: none;
+  border: none;
+  border-left: 1px solid var(--font-color-primary);
+  padding-left: 5px;
+  margin-left: 5px;
+  height: 100%;
+  width: 180px;
+}
+
+.itemActive {
+  background-color: color-success;
+}
+
+.dropdownList {
+  position: absolute;
+  display: block;
+  width: 100%;
+  padding: 0;
+  margin-top: 5px;
+  height: var(--dropdown-list-height);
+  overflow: auto;
+  background: var(--dropdown-list-color) none repeat scroll 0 0;
+  color: var(--font-color-secondary);
+  border-radius: 4px;
+  z-index: 10;
+  ul {
+    width: 100%;
+    margin: 0;
+    transition: all .1s;
+    list-style: none;
+    padding: 0;
+    position: relative;
+    left: 0;
+  }
+
+  li {
+    height: var(--dropdown-item-height);
+    line-height: var(--dropdown-item-height);
+    padding: .1em 2em;
+    cursor: pointer;
+  }
+
+  li:hover {
+    background-color: color-success;
+  }
+}
+
+.dropdownHide {
+  height: 0;
+  padding: 0;
+  ul {
+
+  }
+  li {
+    display: none;
+  }
+}
+
+.iconChevDown {
+  transition: all .3s;
+  color: var(--font-color-primary);
+  display: inline-block;
+  font-size: 9px;
+  top: -2px;
+  position: relative;
+  composes: icon-chev-down from '../../shared/css/icons.css';
+}
+
+.dropdownIcon {
+  cursor: pointer;
+  display: flex;
+  margin-left: 2px;
+  i {
+    margin: auto;
+    top: 2px;
+  }
+}
+
+/* active dropdown icon face up */
+.dropdownIconActive {
+  i {
+    transform: rotate(180deg);
+    top: 0;
+  }
+}
+
+.countryName {
+  display: flex;
+  span {
+    text-transform: uppercase;
+    font-size: 16px;
+    font-weight: 600;
+    margin: auto;
+  }
+}
+
+.iconAlert {
+  transition: all .3s;
+  color: var(--font-color-primary);
+  display: inline-block;
+  position: relative;
+  margin-right: 6px;
+  composes: icon-alert from '../../shared/css/icons.css';
+}
+
+.error {
+  display: flex;
+  opacity: 1;
+  height: var(--error-height);
+  margin-top: 9px;
+  margin-bottom: 11px;
+  transition: all .3s;
+  width: 100%;
+  background-color: #df2127;
+  border-radius: 4px;
+  text-align: center;
+  color: white;
+  font-size: var(--error-font-size);
+  justify-content: center;
+  align-items: center;
+  padding: var(--error-padding);
+}
+
+:global(.c-input-mobile_error--hide) {
+  opacity: 0;
+  height: 0;
+  margin: 0;
+}
+
+@media screen and (min-width: 380px) {
+  .mobileInput {
+    width: 220px;
+  }
+}
+
+@media screen and break-sm {
+  .dropdown {
+    width: 200px;
+  }
+
+  .mobileInput {
+    width: 280px;
+  }
+}
