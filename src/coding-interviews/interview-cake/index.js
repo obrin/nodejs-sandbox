@@ -11,26 +11,25 @@ import { print } from '../utils'
 
 let stockPricesYesterday = [10, 7, 5, 8, 11, 9]; // ans: 6
 let stockPricesYesterday2 = [10, 15, 5, 8, 6, 12]; // ans: 7
+let stockPricesYesterday3 = [15, 9, 8, 2]; // ans: -1
 
 function getMaxProfit (array) {
-  // let ans = 0
-  let biggest = array[0]
   let smallest = array[0]
-  let difference = 0
+  let maxProfit = array[1] - array[0]
 
   for (let i = 1; i < array.length; i++) {
     const current = array[i]
 
-    smallest = Math.min(smallest, current)
-
     const currentDiff = current - smallest
 
-    difference = Math.max(difference, currentDiff)
+    maxProfit = Math.max(maxProfit, currentDiff)
+
+    smallest = Math.min(smallest, current)
   }
 
-  return difference
+  return maxProfit
 }
 
-// print(getMaxProfit)(stockPricesYesterday2)
+print(getMaxProfit)(stockPricesYesterday3)
 
 
