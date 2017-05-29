@@ -1,3 +1,0 @@
-function binarySearch(target, nums) {
-  
-}
