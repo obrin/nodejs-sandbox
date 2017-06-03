@@ -141,7 +141,7 @@ function numberOfTimesSorted (array) {
 
     const next = (mid + 1) % n
     const prev = (mid + n - 1) % n
-    if (array[mid] < array[next] && array[mid] > array[prev]) {
+    if (array[mid] < array[next] && array[mid] < array[prev]) {
       return mid
     }
 
@@ -156,7 +156,7 @@ function numberOfTimesSorted (array) {
 
   return -1
 }
-
+print(numberOfTimesSorted)([11,12,15,2,5,6,8])
 print(numberOfTimesSorted)([11,12,15,18,2,5,6,8])
 
 function binarySearchCircular (array, x) {

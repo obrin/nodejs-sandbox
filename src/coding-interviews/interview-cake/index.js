@@ -452,6 +452,143 @@ console.log('Trie', word.checkPresentAndAdd('google.com/hello')) // true
 console.log('Trie', word.checkPresentAndAdd('google.com')) // false
 
 
+function twelve () {
+  const words = [
+    'ptolemaic',
+    'retrograde',
+    'supplant',
+    'undulate',
+    'xenoepist',
+    'asymptote', // <-- rotates here!
+    'babka',
+    'banoffee',
+    'engender',
+    'karpatka',
+    'othellolagkage',
+  ]
+
+  function main () {
+    const n = words.length
+    let l = 0
+    let h = n - 1
+
+    while (l <= h) {
+      const m = Math.floor((l + h)/2)
+      const wordM = words[m].charCodeAt()
+      const low = words[l].charCodeAt()
+      const high = words[h].charCodeAt()
+
+      if (wordM < low && wordM < high) {
+        return m
+      }
+
+      if (low < high) {
+        return low
+      }
+
+      if (wordM > low) {
+        l = wordM + 1
+      }
+
+      if (wordM < high) {
+        h = wordM - 1
+      }
+    }
+
+    return -1
+  }
+
+  return main() // ans: 5
+}
+
+print(twelve)()
+
+
+function thirteen (flightLength, moviesLength) {
+
+  function main () {
+    const dict = {}
+
+    for (let i = 0; i < moviesLength.length; i++) {
+      const movieLength = moviesLength[i]
+
+      const diff = flightLength - movieLength
+
+      if (dict[movieLength] === diff) {
+        return true
+      }
+
+      dict[diff] = movieLength
+    }
+
+    return false
+  }
+
+  return main()
+}
+
+print(thirteen)(100, [10, 20, 40, 50, 60, 70, 25]) // true
+print(thirteen)(100, [10, 20, 40, 50, 61, 70, 25]) // false
+
+
+function fourteen (n) {
+  function fibonacci () {
+    if (n < 0) {
+      throw new Error('Index was negative. No such thing as a negative index in a series.');
+    }
+
+    if (n === 0 || n === 1) {
+      return n
+    }
+
+    let prev = 0
+    let first = 1
+
+    for (let i = 1; i < n; i++) {
+      let tmp = first
+      first = prev + first
+      prev = tmp
+    }
+
+    return first
+  }
+
+  return fibonacci()
+}
+
+print(fourteen)(0)
+print(fourteen)(1)
+print(fourteen)(2)
+print(fourteen)(3)
+print(fourteen)(4)
+print(fourteen)(5)
+
+function sixteen () {
+  function maxDuffelBagValue (cakeTypes, capacity) {
+    let highest
+
+    cakeTypes.forEach((cake, i) => {
+
+      const ratio = cake.value/cake.weight
+      // if (ratio > highest) {
+      //   highest = ratio
+      //   cake[i] = unefined
+      // }
+      highest = Math.max(highest, ratio)
+    })
+  }
+
+  const cakeTypes = [
+    {weight: 7, value: 160},
+    {weight: 3, value: 90},
+    {weight: 2, value: 15},
+  ];
+
+  const capacity = 20;
+
+  // returns 555 (6 of the middle type of ca
+  return maxDuffelBagValue(cakeTypes, capacity);
+}
 
 
 
