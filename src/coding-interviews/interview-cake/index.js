@@ -563,32 +563,42 @@ print(fourteen)(3)
 print(fourteen)(4)
 print(fourteen)(5)
 
-function sixteen () {
+function sixteen (cakeTypes, capacity) {
   function maxDuffelBagValue (cakeTypes, capacity) {
-    let highest
+    const memo = new Array(capacity).fill(0)
 
-    cakeTypes.forEach((cake, i) => {
+    for (let currentCapacity = 0; currentCapacity <= capacity; currentCapacity++) {
+      let highest = 0
+      cakeTypes.forEach((cake) => {
 
-      const ratio = cake.value/cake.weight
-      // if (ratio > highest) {
-      //   highest = ratio
-      //   cake[i] = unefined
-      // }
-      highest = Math.max(highest, ratio)
-    })
+        if (cake.weight === 0 && cake.value !== 0) {
+          return Infinity
+        }
+
+        if (cake.weight <= currentCapacity) {
+          let maxValue = cake.value + memo[currentCapacity - cake.weight]
+
+
+          highest = Math.max(maxValue, highest)
+        }
+      })
+      memo[currentCapacity] = highest
+    }
+
+    return memo[capacity - 1]
   }
 
-  const cakeTypes = [
+  return maxDuffelBagValue(cakeTypes, capacity)
+}
+
+const cakeTypes = [
     {weight: 7, value: 160},
     {weight: 3, value: 90},
     {weight: 2, value: 15},
   ];
+const capacity = 20
 
-  const capacity = 20;
-
-  // returns 555 (6 of the middle type of ca
-  return maxDuffelBagValue(cakeTypes, capacity);
-}
+print(sixteen)(cakeTypes, capacity)
 
 
 
