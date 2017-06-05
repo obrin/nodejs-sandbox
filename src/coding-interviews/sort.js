@@ -105,5 +105,6 @@ function quickSort(array, start=0, end=array.length) {
   return array
 }
 
-// print(quickSort)([1,2,7,6,8,5,3,4])
+print(quickSort)([1,2,7,6,8,5,5,3,6,4])
+print(quickSort)([37, 89, 89, 41, 65, 91, 53])
 

@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 import { print } from '../utils'
 
 /** 01
@@ -380,7 +381,7 @@ function secondLargestNode (node) {
   if (node.right && !node.right.left && !node.right.right ) {
     return node.value
   }
-  
+
   // step right
   return secondLargestNode(node.right)
 }
@@ -601,7 +602,452 @@ const capacity = 20
 print(sixteen)(cakeTypes, capacity)
 
 
+// queue stack
+/**
+ * Move everything to outStack before dequeuing so that it is FIFO with O(n) computation time
+ */
+function nineteen () {
+  const inStack = []
+  const outStack = []
+
+  function enqueue (item) {
+    inStack.push(item)
+  }
+
+  function dequeue () {
+    if (outStack.length === 0) {
+      while (inStack.length > 0) {
+        outStack.push(inStack.pop())
+      }
+
+      if (outStack.length === 0) {
+        return undefined
+      }
+    }
+
+    return outStack.pop()
+  }
+
+  return {
+    enqueue,
+    dequeue
+  }
+}
+
+const queue = nineteen()
+queue.enqueue(1)
+queue.enqueue(2)
+queue.enqueue(3)
+console.log('queue--', queue.dequeue())
+queue.enqueue(4)
+console.log('queue--', queue.dequeue())
+
+// find number without duplicate
+function tweentyOne () {
+  function findUniqueDeliveryId(deliveryIds) {
+
+    var uniqueDeliveryId = 0;
+
+    deliveryIds.forEach(function(deliveryId) {
+        uniqueDeliveryId ^= deliveryId;
+    });
+
+    return uniqueDeliveryId;
+  }
+
+  return findUniqueDeliveryId([1,2,3,4,3,4,1]) // 2
+}
+
+/**
+ * Bit Level
+ * https://www.interviewcake.com/concept/javascript/bit-shift?
+ * https://www.interviewcake.com/concept/javascript/binary-numbers?
+ */
+
+function tweentyTwo () {
+  function LinkedListNode(value) {
+    this.value = value;
+    this.next = null;
+  }
+
+  var a = new LinkedListNode('A');
+  var b = new LinkedListNode('B');
+  var c = new LinkedListNode('C');
+
+  a.next = b;
+  b.next = c;
+
+  deleteNode(b);
+
+  function deleteNode(node) {
+    if (node.next) {
+      node.value = node.next
+      if (node.next.next) {
+        node.next = node.next.next
+      } else {
+        node.next = null
+      }
+      return
+    }
+
+    node.value = null
+    node.next = null
+  }
+}
+
+function LinkedListNode (value) {
+  this.value = value
+  this.next = null
+}
+
+function tweentyFour () {
+  function reverse (headNode) {
+    let current = headNode
+    let next = null
+    let previous = null
+
+    while (current) {
+      next = current.next
+
+      current.next = previous
+
+      previous = current
+      current = next
+    }
+
+    return previous
+  }
+}
+
+function tweentySeven () {
+  const message = 'find you will pain only go you recordings security the into if'
+
+  function reverseWordsV1 (msg) {
+    const reverse = []
+
+    // indicates end of a word
+    let n = msg.length
+
+    for (let i = msg.length - 1; i >= 0; i--) {
+      const char = msg[i]
+      // move up end word
+      if (char === ' ') {
+        n = i
+      } else if (i === 0 || msg[i - 1] === ' ') {
+        if (reverse.length) {
+          reverse.push(' ')
+        }
+        reverse.push(message.substring(i, n))
+      }
+    }
+    return reverse.join('')
+  }
+
+  function reverseWordsV2 (msg) {
+    const msgArray = msg.split('')
+    function reverse (word, start = 0, end = word.length - 1) {
+      while (start < end) {
+        const tmp = word[start]
+        word[start] = word[end]
+        word[end] = tmp
+        start++
+        end--
+      }
+      return word
+    }
+
+    reverse(msgArray)
+    for (let i = 0, j = 0; i <= msgArray.length; i++) {
+      if (msgArray[i] === ' ' || i === msgArray.length) {
+        reverse(msgArray, j, i - 1)
+        j = i + 1
+      }
+    }
+    return msgArray.join('')
+  }
+
+  return reverseWordsV2(message)
+}
+
+print(tweentySeven)()
 
 
+function tweentyEight (start = 0) {
+  const message = 'Sometimes (when I nest them (my parentheticals) too much (like this (and this))) they get confusing.'
+  let openCount = 0
+  let closeCount = 0
+
+  for (let i = start; i <= message.length; i++) {
+    if (closeCount > 0 && openCount === closeCount) {
+      return i - 1
+    }
+    const char = message[i]
+    if (char === '(') {
+      openCount++
+    }
+
+    if (char === ')') {
+      closeCount++
+    }
+  }
+  return closeCount // 79
+}
+
+print(tweentyEight)(10)
+
+
+function tweentyNine (message, start = 0) {
+  const openCount = {
+    '(': 0,
+    '{': 0,
+    '[': 0
+  }
+
+  const closingPair = {
+    ')': '(',
+    '}': '{',
+    ']': '['
+  }
+
+  // keep track of what closing bracket type should be next
+  const bracketStack = []
+
+  for (let i = start; i < message.length; i++) {
+    const char = message[i]
+    // current character is an open bracket type
+    if (openCount[char] > -1) {
+      // keep track of current bracket type as closing should be in order
+      bracketStack.push(char)
+      openCount[char]++
+    }
+
+    // current character is a closing bracket type
+    const openChar = closingPair[char]
+    if (openChar) {
+      // current closing should match current open
+      if (bracketStack.length && openChar !== bracketStack[bracketStack.length - 1]) {
+        return false
+      }
+
+      bracketStack.pop()
+      openCount[openChar]--
+    }
+  }
+
+  let isValid = true
+
+  for (let bracket in openCount) {
+    if (openCount[bracket] > 0) {
+      isValid = false
+      return isValid
+    }
+  }
+  return isValid
+}
+
+print(tweentyNine)('Sometimes (when I nest them [my parentheticals] too much (like this {and this})) they get confusing.')
+print(tweentyNine)('Sometimes (when I nest them [my parentheti{cals]} too much (like this {and this})) they get confusing.')
+
+
+function thirthy (words) {
+  function isValidPalindromeV1 () {
+    function isEven (number) {
+      return number % 2 === 0
+    }
+    // any permutation validate palindrome
+
+    // if odd length then max 1 odd value
+    // all length match should be even
+
+    const track = []
+    for (let i = 0; i < words.length; i++) {
+      const letter = words[i]
+      const code = letter.charCodeAt() - 96
+      if (!track[code]) {
+        track[code] = 1
+      } else if (track[code]) {
+        track[code]++
+      }
+    }
+
+    let isValid = true
+    let oddCount = 0
+    for (let j = 0; j < track.length; j++) {
+      const num = track[j]
+
+      if (num && !isEven(num)) {
+        oddCount++
+      }
+    }
+
+    const isOddNumberChar = !isEven(words.length)
+
+    if (isOddNumberChar) {
+      if (oddCount > 1) {
+        isValid = false
+      }
+    } else {
+      if (oddCount > 0) {
+        isValid = false
+      }
+    }
+
+    return isValid
+  }
+
+  function isValidPalindromeV2 () {
+    const unpairedChar = new Set()
+
+    for (let i = 0; i < words.length; i++) {
+      const char = words[i]
+      if (unpairedChar.has(char)) {
+        unpairedChar.delete(char)
+      } else {
+        unpairedChar.add(char)
+      }
+    }
+
+    return unpairedChar.size <= 1
+  }
+
+  return isValidPalindromeV2()
+}
+
+print(thirthy)('vasciic')
+print(thirthy)('vciic') // allows for different permutations
+print(thirthy)('civvic')
+print(thirthy)('civicc')
+
+function thrithyOne (strings) {
+  function getPermutations (string) {
+    if (string.length <= 1) {
+      return new Set(string)
+    }
+    let allCharExceptLast = string.slice(0, -1)
+    let lastChar = string[string.length - 1]
+
+    const permutations = getPermutations(allCharExceptLast)
+
+    const set = new Set()
+    for (let i = 0; i < string.length; i++) {
+      permutations.forEach((perm) => {
+        const combination = perm.slice(0, i) + lastChar + perm.slice(i)
+        set.add(combination)
+      })
+    }
+    return set
+  }
+
+  return getPermutations(strings)
+}
+
+print(thrithyOne)('abc')
+
+
+function thirthyTwo (array, highestScore) {
+  const scoreCounts = new Array(highestScore).fill(0)
+
+  array.forEach((score) => {
+    scoreCounts[score]++
+  })
+
+  const orderedScores = []
+
+  for (let score = scoreCounts.length; score >= 0; score--) {
+    const count = scoreCounts[score]
+    for (let times = 1; times <= count; times++) {
+      orderedScores.push(score)
+    }
+  }
+
+  return orderedScores
+}
+
+print(thirthyTwo)([37, 89, 89, 41, 65, 91, 53], 100)
+
+
+function thirthyThree (array) {
+  // read the question incorrectly
+  function v1 () {
+    const dict = {}
+
+    for (let i = 0; i < array.length; i++) {
+      const num = array[i]
+
+      if (dict[num]) {
+        return num
+      } else {
+        dict[num] = 1
+      }
+    }
+
+    return -1
+  }
+
+  function v2 () {
+    const n = array.length - 1
+
+    // sum of n + 1
+    const sum = (n * n + n) / 2
+
+    console.log(sum)
+
+    const total = array.reduce((sum, curr) => {
+      sum += curr
+      return sum
+    }, 0)
+
+    return total - sum
+  }
+
+  return v2()
+}
+
+print(thirthyThree)([1, 2, 3, 4, 5, 2])
+
+function thirthyFour (string) {
+  const dict = new Map()
+
+  for (let start = 0, end = 0; end < string.length;) {
+    const char = string[end].charCodeAt()
+    if (char >= 65 && char <= 122) {
+      end++
+    } else {
+      if (end > start) {
+        let word = string.substring(start, end)
+        word = word.toLowerCase()
+        dict.set(word, (dict.get(word) || 0) + 1)
+      }
+
+      end++
+      start = end
+    }
+  }
+
+  return dict
+}
+
+console.log('ThirthyFour:', thirthyFour('After beating the eggs, Dana read the next step:'))
+console.log('ThirthyFour:', thirthyFour('We came, we saw, we conquered...then we ate Bill\'s (Mille-Feuille) cake.'))
+
+
+
+function fourthyOne (numbers) {
+  function isNegative (int) {
+    return int < 0
+  }
+  for (let i = 0; i < numbers.length; i++) {
+    const currentInteger = Math.abs(numbers[i])
+    const isSeen = isNegative(numbers[currentInteger])
+
+    if (!isSeen) {
+      numbers[currentInteger] *= -1
+    } else {
+      return currentInteger
+    }
+  }
+}
+
+print(fourthyOne)([1, 2, 3, 4, 5, 2]) // 2
 
 
