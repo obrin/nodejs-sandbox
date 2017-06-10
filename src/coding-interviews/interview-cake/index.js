@@ -18,17 +18,22 @@ function getMaxProfit (array) {
     throw new Error('requires at least 2 numbers');
   }
 
-  let smallest = array[0]
+  // we gradually increase minPrice and maxProfit
+  // so we initialize them to the first price and first possible profit
+  let minPrice = array[0]
   let maxProfit = array[1] - array[0]
 
   for (let i = 1; i < array.length; i++) {
-    const current = array[i]
+    const currentPrice = array[i]
 
-    const currentDiff = current - smallest
+    // see what our potential profit would be if we bought at the minPrice and sold at current price
+    const potentialProfit = currentPrice - minPrice
 
-    maxProfit = Math.max(maxProfit, currentDiff)
+    // update the profit if we can do better
+    maxProfit = Math.max(maxProfit, potentialProfit)
 
-    smallest = Math.min(smallest, current)
+    // update the min price so it's always the lowest price we've seen so far
+    minPrice = Math.min(minPrice, currentPrice)
   }
 
   return maxProfit
@@ -56,8 +61,6 @@ function getProductsOfAllIntsExceptAtIndex (array) {
   let productMirror = 1
 
   let newArray = []
-
-  let newArr = []
 
   for (let i = 0; i < array.length; i++) {
     const j = array.length - 1 - i
@@ -107,8 +110,6 @@ function arrayOfInts (array) {
 
     lowestProduct2 = Math.min(lowestProduct2, highest * current, lowest * current)
 
-    lowestProduct2 = Math.min(lowestProduct2, highest * current, lowest * current)
-
     highest = Math.max(highest, current)
 
     lowest = Math.min(lowest, current)
@@ -145,35 +146,34 @@ const mergeRangesArgs4 = [
   {startTime: 7, endTime: 9},
 ]
 
-function mergeRanges (array) {
-  const newArray = [array[0]]
+// function mergeRanges (array) {
+//   const newArray = [array[0]]
 
-  for (let i = 1; i < array.length; i++) {
-    let curr = array[i]
-    let prev = newArray[newArray.length - 1]
+//   for (let i = 1; i < array.length; i++) {
+//     let curr = array[i]
+//     let prev = newArray[newArray.length - 1]
 
-    if (curr.startTime <= prev.endTime) {
-      if (prev.endTime < curr.endTime) {
-        prev.endTime = curr.endTime
-      }
+//     if (curr.startTime <= prev.endTime) {
+//       if (prev.endTime < curr.endTime) {
+//         prev.endTime = curr.endTime
+//       }
 
-      if (prev.startTime > curr.startTime) {
-        prev.startTime = curr.startTime
-      }
-    } else {
-      newArray.push(curr)
-    }
-  }
+//       if (prev.startTime > curr.startTime) {
+//         prev.startTime = curr.startTime
+//       }
+//     } else {
+//       newArray.push(curr)
+//     }
+//   }
 
-  return newArray
-}
+//   return newArray
+// }
 
-print(mergeRanges)(mergeRangesArgs)
+// print(mergeRanges)(mergeRangesArgs)
 
 /**
  *
  */
-
 function changePossibilitiesTopDown(amountLeft, denominations, currentIndex) {
   currentIndex = currentIndex || 0;
 
