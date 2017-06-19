@@ -945,7 +945,7 @@ print(thrithyOne)('abc')
 
 
 function thirthyTwo (array, highestScore) {
-  const scoreCounts = new Array(highestScore).fill(0)
+  const scoreCounts = new Array(highestScore + 1).fill(0)
 
   array.forEach((score) => {
     scoreCounts[score]++
@@ -963,7 +963,7 @@ function thirthyTwo (array, highestScore) {
   return orderedScores
 }
 
-print(thirthyTwo)([37, 89, 89, 41, 65, 91, 53], 100)
+print(thirthyTwo)([37, 89, 89, 41, 65, 91, 53, 100], 100)
 
 
 function thirthyThree (array) {
@@ -990,14 +990,12 @@ function thirthyThree (array) {
     // sum of n + 1
     const sum = (n * n + n) / 2
 
-    console.log(sum)
-
-    const total = array.reduce((sum, curr) => {
-      sum += curr
-      return sum
+    const totalSum = array.reduce((total, curr) => {
+      const newTotal = total + curr
+      return newTotal
     }, 0)
 
-    return total - sum
+    return totalSum - sum
   }
 
   return v2()
